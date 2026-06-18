@@ -432,7 +432,7 @@ export function InteractiveJourney() {
       </section>
 
       <aside className="pointer-events-none absolute bottom-20 right-4 z-20 w-[calc(100vw-2rem)] max-w-xl sm:bottom-6 sm:right-6">
-        <div className="pointer-events-auto max-h-[48svh] overflow-y-auto rounded-[2rem] border border-white/10 bg-slate-950/78 p-4 shadow-2xl shadow-black/40 backdrop-blur-2xl sm:max-h-none sm:p-5">
+        <div className="pointer-events-auto scrollbar-none max-h-[48svh] overflow-y-auto rounded-[2rem] border border-white/10 bg-slate-950/78 p-4 shadow-2xl shadow-black/40 backdrop-blur-2xl sm:max-h-none sm:p-5">
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em]" style={{ backgroundColor: `${activeStation.color}1f`, color: activeStation.accent }}>
@@ -467,7 +467,7 @@ export function InteractiveJourney() {
         </div>
       </aside>
 
-      <div className="pointer-events-none absolute left-4 top-1/2 z-20 flex -translate-y-1/2 flex-col gap-3 sm:left-6 md:bottom-6 md:top-auto md:translate-y-0">
+      <div className="pointer-events-none absolute left-4 top-24 z-20 flex flex-col gap-3 sm:left-6 md:bottom-6 md:top-auto">
         <MobileControls setManualVector={setManualVector} />
         <div className="pointer-events-auto hidden rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-300 backdrop-blur-2xl md:flex md:items-center md:gap-3">
           <Gamepad2 className="size-5 text-cyan-200" /> Use WASD / arrow keys to move. Walk near glowing stations.
