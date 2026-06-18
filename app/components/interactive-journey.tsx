@@ -527,7 +527,7 @@ export function InteractiveJourney() {
         </div>
       </header>
 
-      <section className="pointer-events-none absolute left-4 top-24 z-20 hidden max-w-[min(92vw,520px)] sm:left-6 lg:left-10 lg:top-28 lg:block">
+      <section className="hidden">
         <div className="rounded-[2rem] border border-white/10 bg-slate-950/72 p-5 shadow-2xl shadow-black/30 backdrop-blur-2xl sm:p-6">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-200/20 bg-cyan-200/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-100">
             <Sparkles className="size-3.5" /> Playable Portfolio
