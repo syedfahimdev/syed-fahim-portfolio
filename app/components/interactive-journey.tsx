@@ -185,23 +185,139 @@ function Player({ playerRef }: { playerRef: React.MutableRefObject<PlayerState> 
   return (
     <group ref={group}>
       <group ref={bob}>
-        <mesh position={[0, 0.52, 0]} castShadow>
-          <capsuleGeometry args={[0.18, 0.42, 8, 16]} />
-          <meshStandardMaterial color="#38bdf8" emissive="#0ea5e9" emissiveIntensity={0.28} roughness={0.24} />
+        <mesh position={[0, 0.64, 0]} castShadow>
+          <capsuleGeometry args={[0.23, 0.56, 10, 18]} />
+          <meshStandardMaterial color="#0f172a" emissive="#0ea5e9" emissiveIntensity={0.16} roughness={0.32} metalness={0.15} />
         </mesh>
-        <mesh position={[0, 0.98, 0]} castShadow>
-          <sphereGeometry args={[0.17, 24, 24]} />
-          <meshStandardMaterial color="#e0f2fe" emissive="#38bdf8" emissiveIntensity={0.1} />
+        <mesh position={[0, 0.74, -0.245]} castShadow>
+          <boxGeometry args={[0.36, 0.24, 0.035]} />
+          <meshStandardMaterial color="#67e8f9" emissive="#0891b2" emissiveIntensity={0.35} roughness={0.22} />
         </mesh>
-        <mesh position={[0, 1.03, -0.16]}>
-          <boxGeometry args={[0.1, 0.035, 0.08]} />
+        <mesh position={[-0.29, 0.66, -0.02]} rotation={[0.25, 0, -0.22]} castShadow>
+          <capsuleGeometry args={[0.055, 0.36, 8, 12]} />
+          <meshStandardMaterial color="#bae6fd" roughness={0.38} />
+        </mesh>
+        <mesh position={[0.29, 0.66, -0.02]} rotation={[0.25, 0, 0.22]} castShadow>
+          <capsuleGeometry args={[0.055, 0.36, 8, 12]} />
+          <meshStandardMaterial color="#bae6fd" roughness={0.38} />
+        </mesh>
+        <mesh position={[-0.11, 0.18, 0.02]} rotation={[0, 0, 0.08]} castShadow>
+          <capsuleGeometry args={[0.065, 0.34, 8, 12]} />
+          <meshStandardMaterial color="#1e293b" roughness={0.42} />
+        </mesh>
+        <mesh position={[0.11, 0.18, 0.02]} rotation={[0, 0, -0.08]} castShadow>
+          <capsuleGeometry args={[0.065, 0.34, 8, 12]} />
+          <meshStandardMaterial color="#1e293b" roughness={0.42} />
+        </mesh>
+        <mesh position={[0, 1.1, 0]} castShadow>
+          <sphereGeometry args={[0.2, 28, 28]} />
+          <meshStandardMaterial color="#f8d8be" roughness={0.34} />
+        </mesh>
+        <mesh position={[0, 1.23, 0.015]} scale={[1, 0.48, 1]} castShadow>
+          <sphereGeometry args={[0.215, 24, 24]} />
+          <meshStandardMaterial color="#111827" roughness={0.48} />
+        </mesh>
+        <mesh position={[-0.07, 1.09, -0.18]}>
+          <sphereGeometry args={[0.018, 12, 12]} />
           <meshStandardMaterial color="#020617" />
         </mesh>
-        <mesh position={[0, 0.46, -0.28]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[0.32, 0.01, 8, 48]} />
+        <mesh position={[0.07, 1.09, -0.18]}>
+          <sphereGeometry args={[0.018, 12, 12]} />
+          <meshStandardMaterial color="#020617" />
+        </mesh>
+        <mesh position={[0, 1.045, -0.19]}>
+          <boxGeometry args={[0.105, 0.014, 0.012]} />
+          <meshStandardMaterial color="#7f1d1d" />
+        </mesh>
+        <mesh position={[0.26, 0.68, -0.22]} rotation={[0.75, -0.1, 0.1]} castShadow>
+          <boxGeometry args={[0.28, 0.18, 0.025]} />
+          <meshStandardMaterial color="#020617" emissive="#38bdf8" emissiveIntensity={0.42} roughness={0.18} metalness={0.35} />
+        </mesh>
+        <mesh position={[0, 0.5, 0.24]} castShadow>
+          <boxGeometry args={[0.34, 0.44, 0.08]} />
+          <meshStandardMaterial color="#0f766e" emissive="#14b8a6" emissiveIntensity={0.14} roughness={0.4} />
+        </mesh>
+        <mesh position={[0, 0.52, -0.34]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.38, 0.012, 8, 56]} />
           <meshBasicMaterial color="#67e8f9" transparent opacity={0.45} />
         </mesh>
+        <Text position={[0, 1.48, 0]} fontSize={0.12} color="#e0f2fe" anchorX="center" anchorY="middle">
+          Fahim
+        </Text>
       </group>
+    </group>
+  );
+}
+
+function StationArtifact({ station, isActive }: { station: JourneyStation; isActive: boolean }) {
+  const group = useRef<THREE.Group>(null);
+  const particles = useMemo(() => Array.from({ length: 18 }, (_, index) => {
+    const angle = (index / 18) * Math.PI * 2;
+    return [Math.cos(angle) * (0.42 + (index % 3) * 0.13), Math.sin(index * 1.7) * 0.24, Math.sin(angle) * 0.42] as [number, number, number];
+  }), []);
+
+  useFrame(({ clock }) => {
+    if (!group.current) return;
+    group.current.rotation.y = clock.elapsedTime * (isActive ? 0.9 : 0.35);
+    group.current.scale.setScalar(isActive ? 1.12 : 0.92);
+  });
+
+  if (station.id === "automation" || station.id === "mawa") {
+    return (
+      <group ref={group} position={[0, 1.05, 0]}>
+        {particles.map((point, index) => (
+          <mesh key={index} position={point}>
+            <sphereGeometry args={[0.035 + (index % 2) * 0.018, 10, 10]} />
+            <meshBasicMaterial color={station.color} transparent opacity={0.82} />
+          </mesh>
+        ))}
+        <Line points={particles.map((point) => new THREE.Vector3(...point))} color={station.accent} lineWidth={1} transparent opacity={0.55} />
+      </group>
+    );
+  }
+
+  if (station.id === "cornerrush") {
+    return (
+      <group ref={group} position={[0, 1.05, 0]}>
+        <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[0.5, 0.045, 16, 80]} />
+          <meshStandardMaterial color={station.color} emissive={station.color} emissiveIntensity={1.2} />
+        </mesh>
+        <mesh>
+          <sphereGeometry args={[0.34, 32, 32]} />
+          <meshBasicMaterial color={station.color} transparent opacity={0.16} />
+        </mesh>
+      </group>
+    );
+  }
+
+  if (station.id === "toolsdns") {
+    return (
+      <group ref={group} position={[0, 1.05, 0]}>
+        <mesh>
+          <sphereGeometry args={[0.36, 28, 28]} />
+          <meshStandardMaterial color="#082f49" emissive={station.color} emissiveIntensity={0.38} roughness={0.3} />
+        </mesh>
+        {[0, 0.72, 1.44].map((rotation) => (
+          <mesh key={rotation} rotation={[Math.PI / 2, rotation, 0]}>
+            <torusGeometry args={[0.48, 0.009, 8, 72]} />
+            <meshBasicMaterial color={station.accent} transparent opacity={0.68} />
+          </mesh>
+        ))}
+      </group>
+    );
+  }
+
+  return (
+    <group ref={group} position={[0, 1.05, 0]}>
+      <mesh>
+        <boxGeometry args={[0.46, 0.46, 0.46]} />
+        <meshStandardMaterial color={station.color} emissive={station.color} emissiveIntensity={0.72} roughness={0.22} metalness={0.2} />
+      </mesh>
+      <mesh rotation={[Math.PI / 4, 0, Math.PI / 4]}>
+        <torusGeometry args={[0.58, 0.01, 8, 72]} />
+        <meshBasicMaterial color={station.accent} transparent opacity={0.7} />
+      </mesh>
     </group>
   );
 }
@@ -228,6 +344,7 @@ function StationMesh({ station, isActive }: { station: JourneyStation; isActive:
             <meshBasicMaterial color={station.color} transparent opacity={isActive ? 0.12 : 0.055} />
           </mesh>
         </group>
+        <StationArtifact station={station} isActive={isActive} />
       </Float>
       <mesh rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.7, isActive ? 1.08 : 0.9, 56]} />
