@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, Html, Stars } from "@react-three/drei";
+import { Environment, Float, Stars } from "@react-three/drei";
 import { Suspense, useMemo, useRef } from "react";
 import * as THREE from "three";
 
@@ -101,12 +101,6 @@ function OrbitingNodes() {
             <sphereGeometry args={[node.size * 2.6, 24, 24]} />
             <meshBasicMaterial color={node.color} transparent opacity={0.08} />
           </mesh>
-          <Html center distanceFactor={8} className="pointer-events-none hidden select-none md:block">
-            <div className="rounded-full border border-cyan-200/25 bg-slate-950/75 px-3 py-1.5 text-center shadow-[0_0_24px_rgba(34,211,238,0.18)] backdrop-blur-xl">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.26em] text-cyan-100">{node.label}</div>
-              <div className="whitespace-nowrap text-[11px] text-slate-300">{node.metric}</div>
-            </div>
-          </Html>
         </group>
       ))}
     </group>
